@@ -1,0 +1,44 @@
+			body{
+				background-image:url(image/background.jpg);
+				background-repeat:no-repeat;
+				background-position:center;
+				background-size:cover;
+			}
+			
+		
+			
+			.transbox {
+			  margin-top: 30px;
+			  margin-left:35%;
+			  margin-right:35%;
+			  background-color: #ffffff;
+			  border: 1px solid black;
+			  opacity: 0.6;
+			  filter: alpha(opacity=60);
+			  padding:10px;
+			}
+			#logo{
+				margin:5px;
+				height:50px;
+				width:50px;
+			}
+			.transbox h3{
+				margin:5px;
+				color:red;
+			}
+			.transbox .label{
+				font-weight:bold;
+			}
+			th{
+				text-align:left;
+			}
+			.button{
+				margin-top:10px;
+				font-size:130%;
+				border-radius:5px;
+				
+			}
+			.button:hover{
+				background-color:black;
+				color:#ffffff;
+			}
