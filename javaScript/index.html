@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Registration</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link rel="stylesheet" type="text/css" href="css/style.css"> 
+	<script type="text/javascript" src="js/script.js"></script>
+</head>
+<body onload="captcha()">
+	<div class="header">
+	  <img id="banner" src="image/banner.png" alt="Image not found">
+	</div>
+
+	<div class="navbar">
+	  <a href="#"><img id="logo" src="image/logo.jpg" alt="Image not found"></a>
+	  <a href="#">Home</a>
+	  <a href="#">Profile</a>
+	</div>
+
+	<div class="row">
+	  <div class="side">
+		 
+	  </div>
+	  <div class="main">
+		  <div class="form-style">
+			<h1>Sign Up Now!<span>Sign up to get best products and exciting rewards!!!</span></h1>
+			<form action="#" onsubmit="return validateForm()" id="registrationForm">
+				<div class="section"><span>1</span>Personal Details</div>
+				<div class="inner-wrap">
+					<label>Name<br> 
+						<input type="text" name="First Name" id="fName" class="field-divided" placeholder="First Name" pattern="[A-Za-z]+" autocomplete="off" onblur="checkFirstName()"
+										   oninput="this.setCustomValidity('')" title="First name should contain only character and no space" required />&nbsp
+						<input type="text" name="Middle Name" id="mName" class="field-divided" placeholder="Middle Name" pattern="[A-Za-z]*" autocomplete="off" onblur="checkMiddleName()"
+											oninput="this.setCustomValidity('')"title="Middle name should contain only character and no space" />&nbsp
+						<input type="text" name="Last Name" id="lName" class="field-divided" placeholder="Last Name" pattern="[A-Za-z]+" autocomplete="off" onblur="checkLastName()"
+											oninput="this.setCustomValidity('')" title="Last name should contain only character and no space" required /></label>
+					<label>Date Of Birth <input type="date" name="date of birth" id="dob" placeholder="Enter your date of birth" required title="Date of Birth should not be greater than today's date"
+											onblur="checkDOB()" oninput="this.setCustomValidity('')"></label>
+					<label>Gender
+						<input type="radio" name="gender" value="male" onblur="checkGender()">Male
+						<input type="radio" name="gender" value="female">Female	
+						<input type="radio" name="gender" value="other">Other
+					</label>
+						<span id="genderError"></span>
+				</div>
+				<div class="section"><span>2</span>Contact Details</div>
+				<div class="inner-wrap">
+					<label>Email Address <input type="email" name="email" id="email" placeholder="Enter your email address" autocomplete="off" title="Email should be valid" required														
+												pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" onblur="checkEmail()" oninput="this.setCustomValidity('')"/>
+					</label>
+					<label>Phone Number <input type="number" name="phoneNumber" id="phoneNumber" required min="1000000000" max="9999999999" autocomplete="off" placeholder="Phone number"
+											    title="phone number must having 10 digits"  oninvalid="checkPhoneNumber()" oninput="this.setCustomValidity('')"/>
+					</label>
+				</div>
+				<div class="section"><span>3</span>Passwords</div>
+					<div class="inner-wrap">
+					<label>Password <input type="password" name="password" id="password" placeholder="Enter your Password" autocomplete="off" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+												title="Password must contain at least 8 characters, including UPPER/lowercase and numbers" oninvalid="checkPassword()" oninput="this.setCustomValidity('')"/>
+					</label>
+					<label>Confirm Password <input type="password" name="confirm Password" id="cPassword" title="Please enter the same Password as above." placeholder="Re-Enter your Password" required 
+												pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" autocomplete="off" oninput="checkConfirmPassword()" oninput="this.setCustomValidity('')"/>
+					</label>
+				</div>
+		
+				<div class="section"><span>4</span>Address Details</div>
+				<div class="inner-wrap">
+					<label>Current Address <textarea name="cAddress" id="cAddress" placeholder="Enter your Current Address" required onblur="checkCurrentAddress()" oninput="this.setCustomValidity('')"
+													 title="Address should be more than 15 characters and less than 50 character" ></textarea></label>
+					<div class="address">
+						<label>Country
+								<select name="cCountry" id="cCountry" onblur="checkCurrentCountry()" onclick="this.setCustomValidity('')">
+									<option value="">--select--</option>
+									<option value="India">India</option>
+									<option value="Pakistan">Pakistan</option>
+									<option value="Srilanka">Srilanka</option>
+									<option value="China">China</option>
+								</select>
+						</label>
+						<label>State
+								<select name="cState" id="cState" onblur="checkCurrentState()" onclick="this.setCustomValidity('')">
+								<option value="">--select--</option>
+								<option value="Assam">Assam</option>
+								<option value="Bihar">Bihar</option>
+								<option value="Chhattisgarh">Chhattisgarh</option>
+								<option value="Goa">Goa</option>
+								<option value="Gujarat">Gujarat</option>
+								<option value="Karnataka">Karnataka</option>
+								<option value="Maharashtra">Maharashtra</option>
+								<option value="Orissa">Orissa</option>
+								<option value="West Bengal">West Bengal</option>		
+							</select>
+													
+						</label>
+						<label>City<input type="text" name="cCity" id="cCity" placeholder="Current City" required pattern="[A-Za-z]+" autocomplete="off" onblur="checkCurrentCity()" 
+													oninput="this.setCustomValidity('')" title="City name should be valid"></label>
+						
+						
+						<label>Zip Code<input type="number" min="100000" max="999999" name="cZipCode" id="cZipCode" placeholder="Current Zip Code" required autocomplete="off" 
+													onblur="checkCurrentZipCode()" oninput="this.setCustomValidity('')" title="Zip code should be valid"></label>
+					</div>
+				
+					<label>Permanent Address <textarea name="pAddress" id="pAddress" placeholder="Enter your Permanent Address" required  onblur="checkPermanentAddress()" 
+											oninput="this.setCustomValidity('')" title="Address should be more than 15 characters and less than 50 character"></textarea></label>
+						<div class="address">
+						<label>Country
+								<select name="pCountry" id="pCountry" onblur="checkPermanentCountry()" onclick="this.setCustomValidity('')">
+									<option value="">--select--</option>
+									<option value="India">India</option>
+									<option value="Pakistan">Pakistan</option>
+									<option value="Srilanka">Srilanka</option>
+									<option value="China">China</option>
+								</select>
+						</label>
+						<label>State
+								<select name="pState" id="pState" onblur="checkPermanentState()" onclick="this.setCustomValidity('')">
+								<option value="">--select--</option>
+								<option value="Assam">Assam</option>
+								<option value="Bihar">Bihar</option>
+								<option value="Chhattisgarh">Chhattisgarh</option>
+								<option value="Goa">Goa</option>
+								<option value="Gujarat">Gujarat</option>
+								<option value="Karnataka">Karnataka</option>
+								<option value="Maharashtra">Maharashtra</option>
+								<option value="Orissa">Orissa</option>
+								<option value="West Bengal">West Bengal</option>		
+							</select>
+													
+						</label>
+						<label>City<input type="text" name="pCity" id="pCity" placeholder="Current City" required pattern="[A-Za-z]+" autocomplete="off" onblur="checkPermanentCity()" 
+													oninput="this.setCustomValidity('')" title="City name should be valid"></label>
+						
+						
+						<label>Zip Code<input type="number" min="100000" max="999999" name="pZipCode" id="pZipCode" placeholder="Current Zip Code" required autocomplete="off" 
+													onblur="checkPermanentZipCode()" oninput="this.setCustomValidity('')" title="Zip code should be valid"></label>
+					</div>
+				</div>
+				<div class="section"><span>5</span>Others</div>
+				<div class="inner-wrap">
+					<label>Personal Interests</label><br>
+						<div id="interests">
+							<label><input type="checkbox" value="sports" name="personalInterests">Sports</label>
+							<label><input type="checkbox" value="books" name="personalInterests">Books</label>
+							<label><input type="checkbox" value="computer & software" name="personalInterests">Computer & Software</label>
+							<label><input type="checkbox" value="fashion" name="personalInterests">Fashion</label>
+							<label><input type="checkbox" value="photography" name="personalInterests">Photography</label>
+							<label><input type="checkbox" value="dance" name="personalInterests">Dance</label>
+							<label><input type="checkbox" value="music" name="personalInterests">Music</label>
+							<label><input type="checkbox" id="others" value="others" name="personalInterests" onblur="checkPersonalInterests()" onclick="otherInterests()">Others</label>
+							<input type="text" id="oInterests">
+						</div>
+				</div>
+				<div class="inner-wrap captcha">
+					<span id="first"></span><span id="operator"></span><span id="second"></span> 
+					<input type="number" id="result" required oninput="checkCaptcha()"> <input type="button" value="Refresh" onclick="captcha()"> 
+				</div>
+				
+				<div class="button-section">
+				 <input type="submit" name="Register" value="Register"/>
+				 <span class="privacy-policy">
+				 <input type="checkbox" name="policy"  id="policy" >You agree to our Terms and Policy. 
+				 </span>
+				</div>
+			</form>
+			</div>
+	  </div>
+	</div>
+</body>
+</html>

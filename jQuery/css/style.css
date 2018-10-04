@@ -1,0 +1,231 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+	
+}
+
+.header {
+    background: rgba(26, 188, 156,1);
+}
+.header #banner{
+	height:200px;
+	width:100%;
+}
+.navbar {
+    overflow: hidden;
+    background-color: rgba(51, 51, 51,1);
+}
+
+.navbar a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+	height:50px;
+}
+
+.navbar a #logo{
+	height:50px;
+	width:50px;
+	margin:-14px -20px;
+}
+
+.navbar a:hover {
+    background-color: rgba(221, 221, 221,1);
+    color: rgba(0,0,0,1);
+}
+
+.row {  
+    display: -ms-flexbox; /* IE10 */
+    display: flex;
+    -ms-flex-wrap: wrap; /* IE10 */
+    flex-wrap: wrap;
+}
+
+.side {
+    -ms-flex: 20%; /* IE10 */
+    flex: 20%;
+    background-color: rgba(241, 241, 241,1);
+    padding: 20px;
+}
+
+.main {   
+    -ms-flex: 70%; /* IE10 */
+    flex: 70%;
+    background-color: rgba(255,255,255,1);
+    padding: 20px;
+}
+
+
+
+/* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 700px) {
+    .row {   
+        flex-direction: column;
+    }
+}
+
+/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+@media screen and (max-width: 400px) {
+    .navbar a {
+        float: none;
+        width: 100%;
+    }
+}
+
+
+.main .form-style{
+    width:450px;
+    padding:30px;
+    margin:40px auto;
+    background: rgba(255, 255, 255,1);
+    border-radius: 10px;
+    -webkit-border-radius:10px;
+    -moz-border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.13);
+    -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.13);
+    -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.13);
+}
+.main .form-style .inner-wrap{
+    padding: 30px;
+    background: rgba(248, 248, 248,1);
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+.main .form-style h1{
+    background: rgba(42, 136, 173,1);
+    padding: 20px 30px 15px 30px;
+    margin: -30px -30px 30px -30px;
+    border-radius: 10px 10px 0 0;
+    -webkit-border-radius: 10px 10px 0 0;
+    -moz-border-radius: 10px 10px 0 0;
+    color: rgba(255, 255, 255,1);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.12);
+    font: normal 30px 'Bitter', serif;
+    -moz-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+    -webkit-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+    box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+    border: 1px solid rgba(37, 124, 158,1);
+}
+.main .form-style h1 > span{
+    display: block;
+    margin-top: 2px;
+    font: 13px Arial, Helvetica, sans-serif;
+}
+.main .form-style label{
+    display: block;
+    font: 13px Arial, Helvetica, sans-serif;
+    color: rgba(136, 136, 136,1);
+    margin-bottom: 15px;
+}
+
+
+.main .form-style input[type="text"],
+.form-style input[type="date"],
+.form-style input[type="datetime"],
+.form-style input[type="email"],
+.form-style input[type="number"],
+.form-style input[type="search"],
+.form-style input[type="time"],
+.form-style input[type="url"],
+.form-style input[type="password"],
+.form-style textarea,
+.form-style select {
+    display:block;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    width:100%;
+    padding: 8px;
+    border-radius: 6px;
+    -webkit-border-radius:6px;
+    -moz-border-radius:6px;
+    border: 2px solid rgba(255, 255, 255, 1);
+    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.33);
+    -moz-box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.33);
+    -webkit-box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.33);
+}
+
+.main .form-style .inner-wrap .field-divided {
+	width:31.8%;
+	display:inline;
+}
+
+.main .form-style .inner-wrap .address label{
+	display:inline-block;
+	width:42%;
+	margin:2%;
+}
+.main .form-style .inner-wrap #interests label{
+	display:inline-block;
+}
+.main .form-style .inner-wrap span {
+	display:inline-block;
+	padding:10px;
+}
+.main .form-style .captcha input[type="number"]{
+	display:inline-block;
+	width:30%;
+	padding:10px;
+}
+
+.main .form-style .section{
+    font: normal 20px 'Bitter', serif;
+    color: rgba(42, 136, 173,1);
+    margin-bottom: 5px;
+}
+.main .form-style .section span {
+    background: rgba(42, 136, 173,1);
+    padding: 5px 10px 5px 10px;
+    position: absolute;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border: 4px solid rgba(255,255,255,1);
+    font-size: 14px;
+    margin-left: -45px;
+    color: rgba(255,255,255,1);
+    margin-top: -3px;
+}
+
+.main .form-style input[type="button"], 
+.form-style input[type="submit"]{
+    background: rgba(42, 136, 173,1);
+    padding: 8px 20px 8px 20px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    color: rgba(255,255,255,1);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.12);
+    font: normal 30px 'Bitter', serif;
+    -moz-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+    -webkit-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+    box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+    border: 1px solid #257C9E;
+    font-size: 15px;
+}
+.main .form-style input[type="button"]:hover, 
+.form-style input[type="submit"]:hover{
+    background: rgba(42, 104, 129,1);
+    -moz-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.28);
+    -webkit-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.28);
+    box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.28);
+}
+.main .form-style .privacy-policy{
+    float: right;
+    width: 250px;
+    font: 12px Arial, Helvetica, sans-serif;
+    color: rgba(77, 77, 77,1);
+    margin-top: 10px;
+    text-align: right;
+}
+.errorMessage{
+	font-size:70%;
+	color:rgba(255,0,0,1);
+}
+

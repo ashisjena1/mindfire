@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Registration</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script type = "text/javascript" 
+         src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+    </script> 
+	<script type="text/javascript" src="js/script.js"></script>
+</head>
+<body onload="captcha()">
+	<div class="header">
+	  <img id="banner" src="image/banner.png" alt="Image not found">
+	</div>
+
+	<div class="navbar">
+	  <a href="#"><img id="logo" src="image/logo.jpg" alt="Image not found"></a>
+	  <a href="#">Home</a>
+	  <a href="#">Profile</a>
+	</div>
+
+	<div class="row">
+	  <div class="side">
+		 
+	  </div>
+	  <div class="main">
+		  <div class="form-style">
+			<h1>Sign Up Now!<span>Sign up to get best products and exciting rewards!!!</span></h1>
+			<form action="#" id="registrationForm" >
+				<div class="section"><span>1</span>Personal Details</div>
+				<div class="inner-wrap">
+					<label>Name<br> 
+						<input type="text" name="fName" id="fName" class="field-divided" title="First Name should contain only character and no space" 
+								placeholder="First Name" autocomplete="off" oninput="this.setCustomValidity('')"/>&nbsp
+						<input type="text" name="mName" id="mName" class="field-divided" title="Middle Name should contain only character" 
+								placeholder="Middle Name" autocomplete="off" oninput="this.setCustomValidity('')"/>&nbsp
+						<input type="text" name="lName" id="lName" class="field-divided" title="Last Name should contain only character and no space" 
+								placeholder="Last Name" autocomplete="off" oninput="this.setCustomValidity('')" />
+					</label>
+					<label>Date Of Birth <input type="date" name="dob" id="dob" title="Date of Birth should not be greater than today's date" 
+															placeholder="Enter your date of birth" oninput="this.setCustomValidity('')"></label>
+					<label>Gender
+						<input type="radio" name="gender" value="male">Male
+						<input type="radio" name="gender" value="female">Female	
+						<input type="radio" name="gender" value="other">Other
+					</label>
+					<span id="personalError" class="errorMessage"></span>
+				</div>
+				<div class="section"><span>2</span>Contact Details</div>
+				<div class="inner-wrap">
+					<label>Email Address <input type="email" name="email" id="email" placeholder="Enter your email address" title="" autocomplete="off" 
+							oninput="this.setCustomValidity('')"/></label>
+					<label>Phone Number <input type="number" name="phoneNumber" id="phoneNumber" placeholder="Enter your phone number" title="" 
+							oninput="this.setCustomValidity('')"/></label>
+					<span id="contactError" class="errorMessage"></span>
+				</div>
+				<div class="section"><span>3</span>Passwords</div>
+				<div class="inner-wrap">
+					<label>Password <input type="password" name="password" id="pass" placeholder="Enter your Password" autocomplete="off" oninput="this.setCustomValidity('')"
+						title="Password must contain at least 8 characters, including UPPER/lowercase and numbers" /></label>
+					<label>Confirm Password <input type="password" name="cPassword" id="cPassword" title="Please enter the same Password as above." 
+					placeholder="Re-Enter your Password" oninput="this.setCustomValidity('')"/></label>
+					<span id="passwordError" class="errorMessage"><span>
+				</div>
+		
+				<div class="section"><span>4</span>Address Details</div>
+				<div class="inner-wrap">
+					<label>Current Address <textarea name="cAddress"id="cAddress" placeholder="Enter your Current Address" oninput="this.setCustomValidity('')" 
+							title="Address should be more tahn 15 characters and less than 50 character" ></textarea></label>
+					<div class="address">
+						<label>Country<input type="text" name="currentCountry" id="cCountry" placeholder="Current Country" oninput="this.setCustomValidity(''),activatePlacesSearch(this)" 
+									title="Country name should be valid"></label>
+						<label>State<input type="text" name="currentState" id="cState" placeholder="Current State" oninput="this.setCustomValidity(''),activatePlacesSearch(this)" 
+									title="State name should be valid"></label>
+						<label>City<input type="text" name="currentCity" id="cCity" placeholder="Current City" oninput="this.setCustomValidity(''),activatePlacesSearch(this)" 
+									title="City name should be valid"></label>
+						<label>Zip Code<input type="number" name="currentZipCode" id="cZipCode" placeholder="Current Zip Code" oninput="this.setCustomValidity('')" 
+									title="Zip code should be valid"></label>
+					</div>
+					<span id="cAddressError" class="errorMessage"></span>
+					<label>Permanent Address <textarea name="pAddress" id="pAddress" placeholder="Enter your Permanent Address" oninput="this.setCustomValidity('')" 
+									title="Address should be more tahn 15 characters and less than 50 character"></textarea></label>
+					<div class="address">
+						<label>Country<input type="text" name="permanentCountry" id="pCountry" placeholder="Current Country" oninput="this.setCustomValidity(''),activatePlacesSearch(this)" 
+									title="Country name should be valid"></label>
+						<label>State<input type="text" name="permanentState" id="pState" placeholder="Permanent State" autocomplete="off" oninput="this.setCustomValidity(''),activatePlacesSearch(this)" 
+									title="State name should be valid"></label>
+						<label>City<input type="text" name="permanentCity" id="pCity" placeholder="Permanent City" autocomplete="off" oninput="this.setCustomValidity(''),activatePlacesSearch(this)" 
+									title="City name should be valid"></label>
+						
+						
+						<label>Zip Code<input type="number" name="permanentZipCode" id="pZipCode" placeholder="Permanent Zip Code" oninput="this.setCustomValidity('')" title="Zip code should be valid"></label>
+					</div>
+					<span id="pAddressError" class="errorMessage"></span>
+				</div>
+				<div class="section"><span>5</span>Others</div>
+				<div class="inner-wrap">
+					<label>Personal Interests</label><br>
+						<div id="interests">
+							<label><input type="checkbox" value="sports" name="personalInterests">Sports</label>
+							<label><input type="checkbox" value="books" name="personalInterests">Books</label>
+							<label><input type="checkbox" value="computer & software" name="personalInterests">Computer & Software</label>
+							<label><input type="checkbox" value="fashion" name="personalInterests">Fashion</label>
+							<label><input type="checkbox" value="photography" name="personalInterests">Photography</label>
+							<label><input type="checkbox" value="dance" name="personalInterests">Dance</label>
+							<label><input type="checkbox" value="music" name="personalInterests">Music</label>
+							<label><input type="checkbox" id="otherInterests" value="others" name="personalInterests">Others</label>
+							<input type="text" id="oInterests">
+							<span id="pInterestsError" class="errorMessage"> </span>
+						</div>
+				</div>
+				<div class="inner-wrap captcha">
+					<span id="firstNumber"></span><span id="operator"></span><span id="secondNumber"></span> 
+					<input type="number" id="result" oninput="this.setCustomValidity('')"> <input type="button" value="Refresh" onclick="captcha()"> 
+					
+					<span id="submitError" class="errorMessage"></span>
+				</div>
+				
+				<div class="button-section">
+				 <input type="submit" name="Register" value="Register" />
+				 <span class="privacy-policy">
+				 <input type="checkbox" name="policy" id="policy" >You agree to our Terms and Policy. 
+				 </span>
+				</div>
+			</form>
+			</div>
+	  </div>
+	</div>
+	<script type="text/javascript">
+		function activatePlacesSearch(input){
+			var autocomplete=new google.maps.places.Autocomplete(input);
+		}
+	</script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDADa5J7ftGRImP2nJhCkqdGab3i5Vg-C8&libraries=places&callback=activatePlacesSearch"></script>
+
+</body>
+</html>
