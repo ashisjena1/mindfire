@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
 	<link rel="stylesheet" type="text/css" href="css/style.css"> 
-	<script type="text/javascript" src="js/script.js"></script>
+	
 </head>
 <body onload="captcha()">
 	<div class="header">
@@ -30,20 +30,20 @@
 				<div class="section"><span>1</span>Personal Details</div>
 				<div class="inner-wrap">
 					<label>Name<br> 
-						<input type="text" name="First Name" id="fName" class="field-divided" placeholder="First Name" pattern="[A-Za-z]+" autocomplete="off" onblur="checkFirstName()"
-										   oninput="this.setCustomValidity('')" title="First name should contain only character and no space" required />&nbsp
-						<input type="text" name="Middle Name" id="mName" class="field-divided" placeholder="Middle Name" pattern="[A-Za-z]*" autocomplete="off" onblur="checkMiddleName()"
-											oninput="this.setCustomValidity('')"title="Middle name should contain only character and no space" />&nbsp
-						<input type="text" name="Last Name" id="lName" class="field-divided" placeholder="Last Name" pattern="[A-Za-z]+" autocomplete="off" onblur="checkLastName()"
-											oninput="this.setCustomValidity('')" title="Last name should contain only character and no space" required /></label>
-					<label>Date Of Birth <input type="date" name="date of birth" id="dob" placeholder="Enter your date of birth" required title="Date of Birth should not be greater than today's date"
+						<input type="text" name="First Name" id="fName" class="field-divided" placeholder="First Name" pattern="[ ]*[A-Za-z]+[ ]*" autocomplete="off" onblur="checkFirstName()"
+										   oninput="this.setCustomValidity('')" title="First name should contain only character" required />&nbsp
+						<input type="text" name="Middle Name" id="mName" class="field-divided" placeholder="Middle Name" pattern="[ ]*[A-Za-z]*[ ]*" autocomplete="off" onblur="checkMiddleName()"
+											oninput="this.setCustomValidity('')" title="Middle name should contain only character" />&nbsp
+						<input type="text" name="Last Name" id="lName" class="field-divided" placeholder="Last Name" pattern="[ ]*[A-Za-z]+[ ]*" autocomplete="off" onblur="checkLastName()"
+											oninput="this.setCustomValidity('')" title="Last name should contain only character" required /></label>
+					<label>Date Of Birth <input type="date" name="date of birth" id="dob" placeholder="Enter your date of birth" title="Date of Birth should not be greater than today's date"
 											onblur="checkDOB()" oninput="this.setCustomValidity('')"></label>
 					<label>Gender
-						<input type="radio" name="gender" value="male" onblur="checkGender()">Male
-						<input type="radio" name="gender" value="female">Female	
-						<input type="radio" name="gender" value="other">Other
+						<input type="radio" name="gender" value="male" id="male" onblur="checkGender()">Male
+						<input type="radio" name="gender" value="female" id="female" onblur="checkGender()">Female	
+						<input type="radio" name="gender" value="other" id="others" onblur="checkGender()">Other
 					</label>
-						<span id="genderError"></span>
+						
 				</div>
 				<div class="section"><span>2</span>Contact Details</div>
 				<div class="inner-wrap">
@@ -66,7 +66,7 @@
 		
 				<div class="section"><span>4</span>Address Details</div>
 				<div class="inner-wrap">
-					<label>Current Address <textarea name="cAddress" id="cAddress" placeholder="Enter your Current Address" required onblur="checkCurrentAddress()" oninput="this.setCustomValidity('')"
+					<label>Current Address <textarea name="cAddress" id="cAddress" placeholder="Enter your Current Address" onblur="checkCurrentAddress()" oninput="this.setCustomValidity('')"
 													 title="Address should be more than 15 characters and less than 50 character" ></textarea></label>
 					<div class="address">
 						<label>Country
@@ -93,7 +93,7 @@
 							</select>
 													
 						</label>
-						<label>City<input type="text" name="cCity" id="cCity" placeholder="Current City" required pattern="[A-Za-z]+" autocomplete="off" onblur="checkCurrentCity()" 
+						<label>City<input type="text" name="cCity" id="cCity" placeholder="Current City" required pattern="[ ]*[A-Za-z]+[ ]*" autocomplete="off" onblur="checkCurrentCity()" 
 													oninput="this.setCustomValidity('')" title="City name should be valid"></label>
 						
 						
@@ -101,7 +101,7 @@
 													onblur="checkCurrentZipCode()" oninput="this.setCustomValidity('')" title="Zip code should be valid"></label>
 					</div>
 				
-					<label>Permanent Address <textarea name="pAddress" id="pAddress" placeholder="Enter your Permanent Address" required  onblur="checkPermanentAddress()" 
+					<label>Permanent Address <textarea name="pAddress" id="pAddress" placeholder="Enter your Permanent Address" onblur="checkPermanentAddress()" 
 											oninput="this.setCustomValidity('')" title="Address should be more than 15 characters and less than 50 character"></textarea></label>
 						<div class="address">
 						<label>Country
@@ -128,7 +128,7 @@
 							</select>
 													
 						</label>
-						<label>City<input type="text" name="pCity" id="pCity" placeholder="Current City" required pattern="[A-Za-z]+" autocomplete="off" onblur="checkPermanentCity()" 
+						<label>City<input type="text" name="pCity" id="pCity" placeholder="Current City" required pattern="[ ]*[A-Za-z]+[ ]*" autocomplete="off" onblur="checkPermanentCity()" 
 													oninput="this.setCustomValidity('')" title="City name should be valid"></label>
 						
 						
@@ -155,16 +155,16 @@
 					<span id="first"></span><span id="operator"></span><span id="second"></span> 
 					<input type="number" id="result" required oninput="checkCaptcha()"> <input type="button" value="Refresh" onclick="captcha()"> 
 				</div>
-				
 				<div class="button-section">
 				 <input type="submit" name="Register" value="Register"/>
 				 <span class="privacy-policy">
-				 <input type="checkbox" name="policy"  id="policy" >You agree to our Terms and Policy. 
+				 <input type="checkbox" name="policy" id="policy" onblur="checkPolicy()">You agree to our Terms and Policy. 
 				 </span>
 				</div>
 			</form>
 			</div>
 	  </div>
 	</div>
+	<script type="text/javascript" src="js/script.js"></script>
 </body>
 </html>

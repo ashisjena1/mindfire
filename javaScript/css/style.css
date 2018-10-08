@@ -217,7 +217,7 @@ body {
     -moz-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
     -webkit-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
     box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
-    border: 1px solid #257C9E;
+    border: 1px solid rgb(37, 124, 158,1);;
     font-size: 15px;
 }
 .main .form-style input[type="button"]:hover, 
