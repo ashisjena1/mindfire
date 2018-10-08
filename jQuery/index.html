@@ -11,7 +11,7 @@
     </script> 
 	<script type="text/javascript" src="js/script.js"></script>
 </head>
-<body onload="captcha()">
+<body>
 	<div class="header">
 	  <img id="banner" src="image/banner.png" alt="Image not found">
 	</div>
@@ -30,8 +30,9 @@
 		  <div class="form-style">
 			<h1>Sign Up Now!<span>Sign up to get best products and exciting rewards!!!</span></h1>
 			<form action="#" id="registrationForm" >
+				<div id="form1">
 				<div class="section"><span>1</span>Personal Details</div>
-				<div class="inner-wrap">
+				<div class="inner-wrap" >
 					<label>Name<br> 
 						<input type="text" name="fName" id="fName" class="field-divided" title="First Name should contain only character and no space" 
 								placeholder="First Name" autocomplete="off" oninput="this.setCustomValidity('')"/>&nbsp
@@ -47,8 +48,11 @@
 						<input type="radio" name="gender" value="female">Female	
 						<input type="radio" name="gender" value="other">Other
 					</label>
-					<span id="personalError" class="errorMessage"></span>
+					<span id="personalError" class="errorMessage">sdsdfsd</span>
+					<input type="button" id="next1" class="next" value="Next" />
 				</div>
+				</div>
+				<div id="form2">
 				<div class="section"><span>2</span>Contact Details</div>
 				<div class="inner-wrap">
 					<label>Email Address <input type="email" name="email" id="email" placeholder="Enter your email address" title="" autocomplete="off" 
@@ -56,27 +60,35 @@
 					<label>Phone Number <input type="number" name="phoneNumber" id="phoneNumber" placeholder="Enter your phone number" title="" 
 							oninput="this.setCustomValidity('')"/></label>
 					<span id="contactError" class="errorMessage"></span>
+					<input type="button" id="next2" class="next" value="Next" />
 				</div>
+				</div>
+				<div id="form3">
 				<div class="section"><span>3</span>Passwords</div>
 				<div class="inner-wrap">
 					<label>Password <input type="password" name="password" id="pass" placeholder="Enter your Password" autocomplete="off" oninput="this.setCustomValidity('')"
 						title="Password must contain at least 8 characters, including UPPER/lowercase and numbers" /></label>
 					<label>Confirm Password <input type="password" name="cPassword" id="cPassword" title="Please enter the same Password as above." 
 					placeholder="Re-Enter your Password" oninput="this.setCustomValidity('')"/></label>
-					<span id="passwordError" class="errorMessage"><span>
+					<span id="passwordError" class="errorMessage"></span>
+					<input type="button" id="next3" class="next" value="Next" />
 				</div>
-		
+				</div>
+				<div id="form4">
 				<div class="section"><span>4</span>Address Details</div>
 				<div class="inner-wrap">
 					<label>Current Address <textarea name="cAddress"id="cAddress" placeholder="Enter your Current Address" oninput="this.setCustomValidity('')" 
 							title="Address should be more tahn 15 characters and less than 50 character" ></textarea></label>
 					<div class="address">
-						<label>Country<input type="text" name="currentCountry" id="cCountry" placeholder="Current Country" oninput="this.setCustomValidity(''),activatePlacesSearch(this)" 
-									title="Country name should be valid"></label>
-						<label>State<input type="text" name="currentState" id="cState" placeholder="Current State" oninput="this.setCustomValidity(''),activatePlacesSearch(this)" 
-									title="State name should be valid"></label>
-						<label>City<input type="text" name="currentCity" id="cCity" placeholder="Current City" oninput="this.setCustomValidity(''),activatePlacesSearch(this)" 
-									title="City name should be valid"></label>
+						<label>Country<select name="cCountry" id="cCountry">
+							<option value=''>--- select ---</option>
+						</select></label>
+						<label>State<select name="cState" id="cState">
+							<option value=''>--- select ---</option>
+						</select></label>
+						<label>City<select name="cCity" id="cCity">
+							<option value=''>--- select ---</option>
+						</select></label>
 						<label>Zip Code<input type="number" name="currentZipCode" id="cZipCode" placeholder="Current Zip Code" oninput="this.setCustomValidity('')" 
 									title="Zip code should be valid"></label>
 					</div>
@@ -84,18 +96,24 @@
 					<label>Permanent Address <textarea name="pAddress" id="pAddress" placeholder="Enter your Permanent Address" oninput="this.setCustomValidity('')" 
 									title="Address should be more tahn 15 characters and less than 50 character"></textarea></label>
 					<div class="address">
-						<label>Country<input type="text" name="permanentCountry" id="pCountry" placeholder="Current Country" oninput="this.setCustomValidity(''),activatePlacesSearch(this)" 
-									title="Country name should be valid"></label>
-						<label>State<input type="text" name="permanentState" id="pState" placeholder="Permanent State" autocomplete="off" oninput="this.setCustomValidity(''),activatePlacesSearch(this)" 
-									title="State name should be valid"></label>
-						<label>City<input type="text" name="permanentCity" id="pCity" placeholder="Permanent City" autocomplete="off" oninput="this.setCustomValidity(''),activatePlacesSearch(this)" 
-									title="City name should be valid"></label>
+						<label>Country<select name="cCountry" id="pCountry">
+							<option value=''>--- select ---</option>
+						</select></label>
+						<label>State<select name="pState" id="pState">
+							<option value=''>--- select ---</option>
+						</select></label>
+						<label>City<select name="pCity" id="pCity">
+							<option value=''>--- select ---</option>
+						</select></label>
 						
 						
 						<label>Zip Code<input type="number" name="permanentZipCode" id="pZipCode" placeholder="Permanent Zip Code" oninput="this.setCustomValidity('')" title="Zip code should be valid"></label>
 					</div>
 					<span id="pAddressError" class="errorMessage"></span>
+					<input type="button" id="next4" class="next" value="Next" />
 				</div>
+				</div>
+				<div id="form5">
 				<div class="section"><span>5</span>Others</div>
 				<div class="inner-wrap">
 					<label>Personal Interests</label><br>
@@ -114,9 +132,10 @@
 				</div>
 				<div class="inner-wrap captcha">
 					<span id="firstNumber"></span><span id="operator"></span><span id="secondNumber"></span> 
-					<input type="number" id="result" oninput="this.setCustomValidity('')"> <input type="button" value="Refresh" onclick="captcha()"> 
+					<input type="number" id="result" oninput="this.setCustomValidity('')"> <input type="button" value="Refresh" id="refresh"> 
 					
 					<span id="submitError" class="errorMessage"></span>
+					
 				</div>
 				
 				<div class="button-section">
@@ -125,16 +144,10 @@
 				 <input type="checkbox" name="policy" id="policy" >You agree to our Terms and Policy. 
 				 </span>
 				</div>
+				</div>
 			</form>
 			</div>
 	  </div>
 	</div>
-	<script type="text/javascript">
-		function activatePlacesSearch(input){
-			var autocomplete=new google.maps.places.Autocomplete(input);
-		}
-	</script>
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDADa5J7ftGRImP2nJhCkqdGab3i5Vg-C8&libraries=places&callback=activatePlacesSearch"></script>
-
 </body>
 </html>

@@ -95,7 +95,7 @@ body {
     padding: 30px;
     background: rgba(248, 248, 248,1);
     border-radius: 6px;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
 }
 .main .form-style h1{
     background: rgba(42, 136, 173,1);
@@ -206,7 +206,7 @@ body {
     -moz-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
     -webkit-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
     box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
-    border: 1px solid #257C9E;
+    border: 1px solid rgba(37, 124, 158,1);
     font-size: 15px;
 }
 .main .form-style input[type="button"]:hover, 
@@ -225,7 +225,10 @@ body {
     text-align: right;
 }
 .errorMessage{
-	font-size:70%;
+	font-size:80%;
 	color:rgba(255,0,0,1);
 }
 
+.next{
+	margin-left:80%;
+}
