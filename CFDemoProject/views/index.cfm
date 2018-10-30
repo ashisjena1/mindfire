@@ -1,5 +1,5 @@
 <cfif structKeyExists(url,'logout')>
-	<cfset Application.userService.doLogout()/>
+	<cfset Application.loginService.doLogout()/>
 	<cflocation url="../index.cfm">
 </cfif>
 <cfif structKeyExists(SESSION,'setLoggedInUser')>

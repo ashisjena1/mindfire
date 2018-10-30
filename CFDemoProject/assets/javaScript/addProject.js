@@ -66,7 +66,7 @@ $(function(){
 		}else if(startDate.val()){
 			var date=new Date(startDate.val());
 			var today=new Date();
-			//today.setHours(0,0,0,0);
+			today.setHours(0,0,0,0);
 			if(date < today){
 				error("Project start date can not be previous date",projectStartDateError);
 			} else {
@@ -81,9 +81,8 @@ $(function(){
 			error("Project End Date should not be empty",projectEndDateError);
 		}else if(endDate.val()){
 			var projectStartDate=new Date(startDate.val());
-			//projectEndDate.setHours(0,0,0,0);
+			projectstartDate.setHours(0,0,0,0);
 			var projectEndDate=new Date(endDate.val());
-			
 			if(projectEndDate < projectStartDate){
 				error("Project End date can not be after project Start Date",projectEndDateError);
 			} else {

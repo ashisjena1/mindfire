@@ -1,25 +1,31 @@
+<!--- Instantiate loginErrorMessage --->
 <cfparam name="loginErrorMessage" default=""/>
-
-<cfif not structKeyExists(FORM,'loginUser')>
-	<cfset loginErrorMessage=''/>
+<!--- Checking for submit button click --->
+<cfif not structKeyExists(FORM,"loginUser")>
+	<cfset loginErrorMessage=""/>
 <cfelse>
-	<cfset loginErrorMessage=APPLICATION.userService.loginUser()/>
-	<cfif loginErrorMessage eq ''>
-		 <cfset APPLICATION.userService.doLogin(FORM.email,FORM.password)/>
+	<!--- Checking user input data for server side validation --->
+	<cfset loginErrorMessage=APPLICATION.loginService.loginUser()/>
+	<cfif loginErrorMessage EQ "">
+		 <!--- If no error then Login the employee --->
+		 <cfset APPLICATION.loginService.doLogin(FORM.email,FORM.password)/>
 	</cfif>
 </cfif>
-
-
-<cfif structKeyExists(SESSION,'setLoggedInUser')>
-	<cfif #SESSION.setLoggedInUser.empRole# eq "HR">
+<!--- Checking for user Login--->
+<cfif structKeyExists(SESSION,"setLoggedInUser")>
+	<!--- Checking for Login user is HR or Not --->
+	<cfif #SESSION.setLoggedInUser.empRole# EQ "HR">
+		<!--- If HR then redirect to HR Page--->
 		<cflocation url="admin/index.cfm"/>
 	<cfelse>
+		<!--- Otherwise redirect to Employee Page--->
 		<cflocation url="views/index.cfm"/>
 	</cfif>
 <cfelse>
-<cf_headerFooter title="login page">
-	<link rel="stylesheet" type="text/css" href="assets/css/login.css">
-	<script type = "text/javascript" src = "assets/javaScript/login.js"></script>
+	<!--- custom tag for header footer--->
+	<cf_headerFooter title="login page">
+		<!--- import External stylesheet --->
+		<link rel="stylesheet" type="text/css" href="assets/css/login.css">
 	</head>
 	<body>
 	<cfoutput>
@@ -38,9 +44,10 @@
 	            <a href="" class="forgot-password">
 	                Forgot the password?
 	            </a>
-	        </div>
-	    </div>
-	  </cfoutput>
-
-</cf_headerFooter>
+	        </div><!--- End card--->
+	    </div><!--- End container--->
+	</cfoutput>
+	<!--- import External javascript --->
+	<script type = "text/javascript" src = "assets/javaScript/login.js"></script>
+	</cf_headerFooter><!--- End header footer --->
 </cfif>

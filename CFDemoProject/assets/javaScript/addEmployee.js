@@ -7,7 +7,6 @@ $(document).ready(function(){
 	var phoneNumberError=$("#phoneNumberError");
 	var genderError=$("#genderError");
 	var joiningDateError=$("#joiningDateError");
-	var departmentNameError=$("#departmentNameError");
 	var basicSalaryError=$("#basicSalaryError");
 	var roleNameError=$("#roleNameError");
 	var addNewEmployee=$("#addNewEmployee");
@@ -20,7 +19,6 @@ $(document).ready(function(){
 	var errorEmail;
 	var errorPhoneNumber;
 	var errorJoiningDate;
-	var errorDepartmentName;
 	var errorBasicSalary;
 	var errorRoleName;
 	
@@ -33,7 +31,6 @@ $(document).ready(function(){
 	var email=$("#email");
 	var phoneNumber=$("#phoneNumber");
 	var joiningDate =$("#joiningDate");
-	var departmentName=$("#departmentName");
 	var basicSalary=$("#basicSalary");
 	var roleName=$("#roleName");
 	
@@ -73,11 +70,6 @@ $(document).ready(function(){
 		errorjoiningDate=false;
 		checkJoiningDate();
 	});
-	departmentName.focusout(function(){
-		errorDepartmentName=false;
-		checkDepartmentName();
-	});
-	
 	basicSalary.focusout(function(){
 		errorBasicSalary=false;
 		checkBasicSalary();
@@ -161,14 +153,13 @@ $(document).ready(function(){
 	}
 	function checkPhoneNumber(){
 		if (phoneNumber.val().length === 0) {
-				phoneNumberError.html('Phone numbershould not be empty');
+				phoneNumberError.html('Phone number should not be empty');
 		}  else if (phoneNumber.val().match(/[1-9][0-9]{9}/)!=phoneNumber.val().trim()){
 			phoneNumberError.html('phone number must contain 10 digits');
 		} else {
 			phoneNumberError.html("");
 			errorPhoneNumber=true;
 		}
-		return false;
 	}
 	
 	function checkJoiningDate(){
@@ -177,21 +168,13 @@ $(document).ready(function(){
 		}else if(joiningDate.val()){
 			var date=new Date(joiningDate.val());
 			var today=new Date();
+			today.setHours(0,0,0,0);
 			if(date < today){
 				joiningDateError.html("Joining Date can not be previous date");
 			} else {
 				joiningDateError.html("");
 				errorJoiningDate =true;
 			}
-		}
-	}
-	
-	function checkDepartmentName(){
-		if (departmentName.val() == "") {
-			departmentNameError.html("Department Name should be select");
-		}else {
-			departmentNameError.html("")
-			errorDepartmentName=true;
 		}
 	}
 	
@@ -222,7 +205,6 @@ $(document).ready(function(){
 		errorEmail=false;
 		errorPhoneNumber=false;
 		errorJoiningDate=false;
-		errorDepartmentName=false;
 		errorBasicSalary=false;
 		errorRoleName=false;
 		
@@ -234,14 +216,13 @@ $(document).ready(function(){
 		checkEmail();
 		checkPhoneNumber();
 		checkJoiningDate();
-		checkDepartmentName();
 		checkBasicSalary();
 		checkRoleName();
 		
 		
-		if(errorFirstName && errorLastName && errorMiddleName && errorDOB && errorGender && errorEmail && errorPhoneNumber && errorJoiningDate && errorDepartmentName 
+		if(errorFirstName && errorLastName && errorMiddleName && errorDOB && errorGender && errorEmail && errorPhoneNumber && errorJoiningDate  
 						&& errorBasicSalary && errorRoleName){
-				addEmployee.html("<p style='color:green'>Congratulations,You registered successfully...</p>");
+				return true;
 		}
 		return false;
 	});
