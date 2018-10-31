@@ -12,7 +12,11 @@
 	<!--- Declaring the path for the custom tag --->
 	<cfset this.customTagPaths = expandPath('/customTags')>
 
+	this.clientManagement="Yes";
+
 	<cffunction name="onApplicationStart" returntype="boolean">
+		<!--- Declare name of the Applcation --->
+		<cfset APPLICATION.applicationName="Employee Management System"/>
 		<cfset APPLICATION.loginService=createObject('component','components.loginService')/>
 		<cfset APPLICATION.employeeService=createObject('component','components.employeeService')/>
 		<cfset APPLICATION.adminService=createObject('component','components.adminService')/>

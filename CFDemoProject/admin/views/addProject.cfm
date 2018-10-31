@@ -7,24 +7,24 @@
 	</cfif>
 	<!--- Checking the user is HR or Not --->
 	<cfif #UCase(SESSION.setLoggedInUser.empRole)# EQ "HR">
-		<cfset name="#SESSION.setLoggedInUser.firstName# #SESSION.setLoggedInUser.lastName#">
-		<cfparam name="isProjectAdded" default="false">
+		<cfset VARIABLES.name="#SESSION.setLoggedInUser.firstName# #SESSION.setLoggedInUser.lastName#">
+		<cfparam name="VARIABLES.isProjectAdded" default="false">
 		<!--- Checking for submit button click --->
 		<cfif not structKeyExists(FORM,"addProject")>
 			<!--- Initializing the error message in addProjectErrorMessage structure --->
-			<cfset addProjectErrorMessage={projectName="",managerName="",startDate="",endDate=""}/>
+			<cfset VARIABLES.addProjectErrorMessage={projectName="",managerName="",startDate="",endDate=""}/>
 		<cfelse>
 			<!--- Checking admin input data for server side validation --->
-			<cfset addProjectErrorMessage=APPLICATION.adminService.checkProjectDetails()/>
-			<cfif addProjectErrorMessage.projectName EQ ""  and addProjectErrorMessage.managerName EQ "" and
-					addProjectErrorMessage.startDate EQ "" and addProjectErrorMessage.endDate EQ "">
+			<cfset VARIABLES.addProjectErrorMessage=APPLICATION.adminService.checkProjectDetails()/>
+			<cfif VARIABLES.addProjectErrorMessage.projectName EQ ""  and VARIABLES.addProjectErrorMessage.managerName EQ "" and
+					VARIABLES.addProjectErrorMessage.startDate EQ "" and VARIABLES.addProjectErrorMessage.endDate EQ "">
 					<!--- If no error then add data to the employee table --->
-					<cfset isProjectAdded = APPLICATION.adminService.addProject(FORM.projectName,FORM.managerID,FORM.projectStartDate,FORM.projectEndDate)/>
+					<cfset VARIABLES.isProjectAdded = APPLICATION.adminService.addProject(FORM.projectName,FORM.managerID,FORM.projectStartDate,FORM.projectEndDate)/>
 			</cfif>
 		</cfif>
 
 		<!--- If project added successfully then redirect to home page --->
-		<cfif isProjectAdded>
+		<cfif VARIABLES.isProjectAdded>
 			<cflocation url="../index.cfm">
 		<cfelse><!--- else show the add project form --->
 			<cf_headerFooter title="Add Project">
@@ -35,15 +35,15 @@
 				</head>
 				<body>
 					<!--- custom tag for top nav bar --->
-					<cf_navbar name="#name#" source="../../assets/images/" homeSource="../" profileSource="profile.cfm"></cf_navbar>
+					<cf_navbar name="#VARIABLES.name#" source="../../assets/images/" homeSource="../" profileSource="../../common/profile.cfm"></cf_navbar>
 					<!--- Side navbar --->
 					<div class="sidenav">
 					  <a href="addEmployee.cfm">Add Employee</a>
-					  <a href="addProject.cfm">Add Project</a>
+					  <a href="">Add Project</a>
 					  <a href="projectDetails.cfm">Project Details</a>
 					  <a href="assignProject.cfm">Assign Project</a>
-					  <a href="applyLeaves.cfm">Apply Leaves</a>
-					  <a href="salary.cfm">Salary</a>
+					  <a href="../../common/applyLeaves.cfm">Apply Leaves</a>
+					  <a href="../../common/salary.cfm">Salary</a>
 					</div><!--- end side navbar --->
 					<!--- main content --->
 					<div class="main">
@@ -58,7 +58,7 @@
 													<input type="text" id="projectName" name="projectName" placeholder="Project Name" class="form-control" >
 												</div>
 												<div class="col-sm-4"></div>
-												<div class="col-sm-8"><span class="text-danger" id="projectNameError">#addProjectErrorMessage.projectName#</span></div>
+												<div class="col-sm-8"><span class="text-danger" id="projectNameError">#VARIABLES.addProjectErrorMessage.projectName#</span></div>
 											</div>
 											<!--- fetch the manager name from the employee table  --->
 											<cfset manager=APPLICATION.employeeService.getManager()/>
@@ -74,7 +74,7 @@
 													</select>
 												</div>
 												 <div class="col-sm-4"></div>
-												<div class="col-sm-8"><span class="text-danger" id="projectManagerError">#addProjectErrorMessage.managerName#</span></div>
+												<div class="col-sm-8"><span class="text-danger" id="projectManagerError">#VARIABLES.addProjectErrorMessage.managerName#</span></div>
 											</div>
 											<div class="form-group">
 												<label for="startDate" class="col-sm-4 control-label">Start Date*</label>
@@ -82,7 +82,7 @@
 													<input type="date" id="startDate" name="projectStartDate" class="form-control">
 												</div>
 												 <div class="col-sm-4"></div>
-												<div class="col-sm-8"><span class="text-danger" id="projectStartDateError">#addProjectErrorMessage.startDate#</span></div>
+												<div class="col-sm-8"><span class="text-danger" id="projectStartDateError">#VARIABLES.addProjectErrorMessage.startDate#</span></div>
 											</div>
 											<div class="form-group">
 												<label for="endDate" class="col-sm-4 control-label">End Date*</label>
@@ -90,7 +90,7 @@
 													<input type="date" id="endDate" name="projectEndDate" class="form-control">
 												</div>
 												 <div class="col-sm-4"></div>
-												<div class="col-sm-8"><span class="text-danger" id="projectEndDateError">#addProjectErrorMessage.endDate#</span></div>
+												<div class="col-sm-8"><span class="text-danger" id="projectEndDateError">#VARIABLES.addProjectErrorMessage.endDate#</span></div>
 											</div>
 											<input type="submit" class="btn btn-primary btn-block" value="Add Project" name="addProject"/>
 										</cfoutput>

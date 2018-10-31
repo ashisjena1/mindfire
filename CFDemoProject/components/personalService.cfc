@@ -3,51 +3,91 @@
 	<!--- Fetch employee personal details  --->
 	<cffunction name="getPersonalDetail" hint="fetch the employee personal details" access="public" output="false" returntype="query">
 		<cfargument name="employeeId" type="numeric" required="true"/>
-		<cfquery name="personalDetails">
-			SELECT emp.firstName,emp.middleName,emp.lastName,emp.email,emp.dateOfBirth,
-			CASE emp.gender WHEN 'm' THEN 'Male'
-							WHEN 'f' THEN 'Female'
-							WHEN 'O' THEN 'Other'
-			END gender,
-			emp.joiningDate,dept.departmentName,emp.basicSalary,empRole.roleName,emp.phoneNumber FROM
-			employees emp JOIN employeeRole empRole ON emp.roleId = empRole.roleId JOIN department dept ON
-			empRole.departmentId = dept.departmentId WHERE emp.empId =
-			<cfqueryparam cfsqltype="CF_SQL_INT" value="#ARGUMENTS.employeeId#"/>
+		<cftry>		<!--- try block for handle exception --->
+			<cfquery name="personalDetails">
+				SELECT emp.firstName,emp.middleName,emp.lastName,emp.email,emp.dateOfBirth,
+				CASE emp.gender WHEN 'm' THEN 'Male'
+								WHEN 'f' THEN 'Female'
+								WHEN 'O' THEN 'Other'
+				END gender,
+				emp.joiningDate,dept.departmentName,emp.basicSalary,empRole.roleName,emp.phoneNumber,emp.isActive FROM
+				employees emp JOIN employeeRole empRole ON emp.roleId = empRole.roleId JOIN department dept ON
+				empRole.departmentId = dept.departmentId WHERE emp.empId =
+				<cfqueryparam cfsqltype="CF_SQL_INT" value="#ARGUMENTS.employeeId#"/>
 
-		</cfquery>
+			</cfquery>
+		<cfcatch type="Database">	<!--- catch block for database exception --->
+			<cflog file="EmployeeManagementSystemLog" application="no" text="Database Error on component : personalService on function : getPersonalDetail"/>
+			<cflocation url="error.cfm">
+		</cfcatch>	<!--- end database exception --->
+		<cfcatch type="any">	<!--- catch block for any exception --->
+			<cflog file="EmployeeManagementSystemLog" application="no" text="Any Error on component : personalService on function : getPersonalDetail "/>
+			<cflocation url="error.cfm">
+		</cfcatch>	<!--- end any exception --->
+		</cftry>	<!--- end dtry block --->
 		<cfreturn personalDetails/>
 	</cffunction>
 
 	<!--- Fetch skills of a perticular employee  --->
 	<cffunction name="getSkillDetails" hint="fetch the skills of employee" access="public" output="false" returntype="query">
 		<cfargument name="employeeId" type="numeric" required="true"/>
-		<cfquery name="skillDetails">
-			SELECT skill.skillName FROM skills skill JOIN employeeSkills empSkill ON skill.skillId=empSkill.skillId JOIN employees emp
-			ON emp.empId = empSkill.empId WHERE emp.empId = <cfqueryparam cfsqltype="CF_SQL_INT" value="#ARGUMENTS.employeeId#"/>
-		</cfquery>
+		<cftry>		<!--- try block for handle exception --->
+			<cfquery name="skillDetails">
+				SELECT skill.skillName FROM skills skill JOIN employeeSkills empSkill ON skill.skillId=empSkill.skillId JOIN employees emp
+				ON emp.empId = empSkill.empId WHERE emp.empId = <cfqueryparam cfsqltype="CF_SQL_INT" value="#ARGUMENTS.employeeId#"/>
+			</cfquery>
+		<cfcatch type="Database">	<!--- catch block for database exception --->
+			<cflog file="EmployeeManagementSystemLog" application="no" text="Database Error on component : personalService on function : getSkillDetails"/>
+			<cflocation url="error.cfm">
+		</cfcatch>	<!--- end database exception --->
+		<cfcatch type="any">	<!--- catch block for any exception --->
+			<cflog file="EmployeeManagementSystemLog" application="no" text="Any Error on component : personalService on function : getSkillDetails "/>
+			<cflocation url="error.cfm">
+		</cfcatch>	<!--- end any exception --->
+		</cftry>	<!--- end dtry block --->
 		<cfreturn skillDetails/>
 	</cffunction>
 
 	<!--- Fetch project details of an employee --->
 	<cffunction name="getEmployeeProjectDetails" hint="fetch the project details of the employee" access="public" output="false" returntype="query">
 		<cfargument name="employeeId" type="numeric" required="true"/>
-		<cfquery name="employeeProjectDetails">
-			SELECT proj.projectName,(SELECT CONCAT(ISNULL(emp.firstName,''),' ',ISNULL(emp.middleName,''),' ',ISNULL(emp.lastName,'')) name
-			FROM employees WHERE empId = proj.projectMgrId) as manager,empProject.projectjoinDate,empProject.projectFinishDate FROM project proj
-			JOIN employeeProject empProject ON proj.projectId = empProject.projectId JOIN employees emp ON emp.empId = empProject.empId WHERE
-			emp.empId = <cfqueryparam cfsqltype="CF_SQL_INT" value="#ARGUMENTS.employeeId#"/>
-		</cfquery>
+		<cftry>		<!--- try block for handle exception --->
+			<cfquery name="employeeProjectDetails">
+				SELECT proj.projectName,(SELECT CONCAT(ISNULL(e.firstName,''),' ',ISNULL(e.middleName,''),' ',ISNULL(e.lastName,'')) name
+				FROM employees e WHERE e.empId = proj.projectMgrId) as manager,empProject.projectjoinDate,empProject.projectFinishDate FROM project proj
+				JOIN employeeProject empProject ON proj.projectId = empProject.projectId JOIN employees emp ON emp.empId = empProject.empId WHERE
+				emp.empId = <cfqueryparam cfsqltype="CF_SQL_INT" value="#ARGUMENTS.employeeId#"/>
+			</cfquery>
+		<cfcatch type="Database">	<!--- catch block for database exception --->
+			<cflog file="EmployeeManagementSystemLog" application="no" text="Database Error on component : personalService on function : getEmployeeProjectDetails"/>
+			<cflocation url="../../common/error.cfm">
+		</cfcatch>	<!--- end database exception --->
+		<cfcatch type="any">	<!--- catch block for any exception --->
+			<cflog file="EmployeeManagementSystemLog" application="no" text="Any Error on component : personalService on function : getEmployeeProjectDetails "/>
+			<cflocation url="../../common/error.cfm">
+		</cfcatch>	<!--- end any exception --->
+		</cftry>	<!--- end dtry block --->
 		<cfreturn employeeProjectDetails/>
 	</cffunction>
 
 	<!--- Fetch salary details of an employee --->
 	<cffunction name="getSalaryDetails" hint="fetch the salary details of the employee" access="public" output="false" returntype="query">
 		<cfargument name="employeeId" type="numeric" required="true"/>
-		<cfquery name="salaryDetails">
-			SELECT CONCAT(ISNULL(emp.firstName,''),' ',ISNULL(emp.middleName,''),' ',ISNULL(emp.lastName,'')) "Name",emp.basicSalary,sal.hra,
-			sal.otherAllowances,sal.deduction,emp.basicSalary+sal.hra+otherAllowances-deduction total ,sal.creditDate FROM employees emp JOIN
-			salaries sal ON emp.empId = sal.empId WHERE  emp.empId = <cfqueryparam cfsqltype="CF_SQL_INT" value="#ARGUMENTS.employeeId#"/>
-		</cfquery>
+		<cftry>		<!--- try block for handle exception --->
+			<cfquery name="salaryDetails">
+				SELECT CONCAT(ISNULL(emp.firstName,''),' ',ISNULL(emp.middleName,''),' ',ISNULL(emp.lastName,'')) "Name",emp.basicSalary,sal.hra,
+				sal.otherAllowances,sal.deduction,emp.basicSalary+sal.hra+otherAllowances-deduction total ,sal.creditDate FROM employees emp JOIN
+				salaries sal ON emp.empId = sal.empId WHERE  emp.empId = <cfqueryparam cfsqltype="CF_SQL_INT" value="#ARGUMENTS.employeeId#"/>
+			</cfquery>
+		<cfcatch type="Database">	<!--- catch block for database exception --->
+			<cflog file="EmployeeManagementSystemLog" application="no" text="Database Error on component : personalService on function : getSalaryDetails"/>
+			<cflocation url="../../common/error.cfm">
+		</cfcatch>	<!--- end database exception --->
+		<cfcatch type="any">	<!--- catch block for any exception --->
+			<cflog file="EmployeeManagementSystemLog" application="no" text="Any Error on component : personalService on function : getSalaryDetails "/>
+			<cflocation url="../../common/error.cfm">
+		</cfcatch>	<!--- end any exception --->
+		</cftry>	<!--- end dtry block --->
 		<cfreturn salaryDetails/>
 	</cffunction>
 
@@ -55,27 +95,59 @@
 	<cffunction name="getLeaveDetails" hint="fetch the leave details" access="public" output="false" returntype="query">
 		<cfargument name="employeeId" type="numeric" required="true"/>
 		<cfargument name="year" type="numeric" required="true"/>
-		<cfquery name="leaveDetails">
-			SELECT * FROM employeeAnnualLeave WHERE empId = <cfqueryparam cfsqltype="CF_SQL_INT" value="#ARGUMENTS.employeeId#"/>
-												and leaveYear = <cfqueryparam cfsqltype="CF_SQL_INT" value="#ARGUMENTS.year#"/>
-		</cfquery>
+		<cftry>		<!--- try block for handle exception --->
+			<cfquery name="leaveDetails">
+				SELECT totalLeaveAssigned,totalLeaveTaken,totalRemainingLeave FROM employeeAnnualLeave WHERE
+													empId = <cfqueryparam cfsqltype="CF_SQL_INT" value="#ARGUMENTS.employeeId#"/>
+												AND leaveYear = <cfqueryparam cfsqltype="CF_SQL_INT" value="#ARGUMENTS.year#"/>
+			</cfquery>
+		<cfcatch type="Database">	<!--- catch block for database exception --->
+			<cflog file="EmployeeManagementSystemLog" application="no" text="Database Error on component : personalService on function : getLeaveDetails"/>
+			<cflocation url="error.cfm">
+		</cfcatch>	<!--- end database exception --->
+		<cfcatch type="any">	<!--- catch block for any exception --->
+			<cflog file="EmployeeManagementSystemLog" application="no" text="Any Error on component : personalService on function : getLeaveDetails "/>
+			<cflocation url="error.cfm">
+		</cfcatch>	<!--- end any exception --->
+		</cftry>	<!--- end dtry block --->
 		<cfreturn leaveDetails/>
 	</cffunction>
 
 	<!--- Fetch leave history an employee --->
 	<cffunction name="getLeaveTakenDetails" hint="fetch the past leave details" access="public" output="false" returntype="query">
 		<cfargument name="employeeId" type="numeric" required="true"/>
-		<cfquery name="leaveTakenDetails">
-			SELECT * FROM leaveTaken WHERE empId = <cfqueryparam cfsqltype="CF_SQL_INT" value="#ARGUMENTS.employeeId#"/>
-		</cfquery>
+		<cftry>		<!--- try block for handle exception --->
+			<cfquery name="leaveTakenDetails">
+				SELECT reason,leaveFromDate,leaveToDate,totalNumberOfDays FROM leaveTaken
+				WHERE empId = <cfqueryparam cfsqltype="CF_SQL_INT" value="#ARGUMENTS.employeeId#"/>
+			</cfquery>
+		<cfcatch type="Database">	<!--- catch block for database exception --->
+			<cflog file="EmployeeManagementSystemLog" application="no" text="Database Error on component : personalService on function : getLeaveTakenDetails"/>
+			<cflocation url="../../common/error.cfm">
+		</cfcatch>	<!--- end database exception --->
+		<cfcatch type="any">	<!--- catch block for any exception --->
+			<cflog file="EmployeeManagementSystemLog" application="no" text="Any Error on component : personalService on function : getLeaveTakenDetails "/>
+			<cflocation url="../../common/error.cfm">
+		</cfcatch>	<!--- end any exception --->
+		</cftry>	<!--- end dtry block --->
 		<cfreturn leaveTakenDetails/>
 	</cffunction>
 
 	<!--- Fetch all the skill from skills table --->
 	<cffunction name="getSkills" hint="fetch all the skills" access="public" output="false" returntype="query">
-		<cfquery name="skills">
-			SELECT * FROM skills;
-		</cfquery>
+		<cftry>		<!--- try block for handle exception --->
+			<cfquery name="skills">
+				SELECT skillId,skillName FROM skills;
+			</cfquery>
+		<cfcatch type="Database">	<!--- catch block for database exception --->
+			<cflog file="EmployeeManagementSystemLog" application="no" text="Database Error on component : personalService on function : getSkills"/>
+			<cflocation url="../../common/error.cfm">
+		</cfcatch>	<!--- end database exception --->
+		<cfcatch type="any">	<!--- catch block for any exception --->
+			<cflog file="EmployeeManagementSystemLog" application="no" text="Any Error on component : personalService on function : getSkills "/>
+			<cflocation url="error.cfm">
+		</cfcatch>	<!--- end any exception --->
+		</cftry>	<!--- end dtry block --->
 		<cfreturn skills/>
 	</cffunction>
 
@@ -111,15 +183,24 @@
 		<cfargument  name="gender" type="string" required="true"/>
 		<cfargument  name="phoneNumber" type="numeric" required="true"/>
 
+		<cftry>		<!--- try block for handle exception --->
+			<cfquery name="employee">
 
-		<cfquery name="employee">
-
-			UPDATE employees SET dateOfBirth = <cfqueryparam cfsqltype="CF_SQL_DATE" value="#ARGUMENTS.dob#"/> ,
+				UPDATE employees SET dateOfBirth = <cfqueryparam cfsqltype="CF_SQL_DATE" value="#ARGUMENTS.dob#"/> ,
 									  gender = <cfqueryparam cfsqltype="CF_SQL_CHAR" value="#ARGUMENTS.gender#"/> ,
 									  phoneNumber = <cfqueryparam cfsqltype="CF_SQL_BIGINT" value="#ARGUMENTS.phoneNumber#"/>
 									  WHERE empId = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#ARGUMENTS.employeeId#"/>
 
-		</cfquery>
+			</cfquery>
+		<cfcatch type="Database">	<!--- catch block for database exception --->
+			<cflog file="EmployeeManagementSystemLog" application="no" text="Database Error on component : personalService on function : updatePersonalDetails"/>
+			<cflocation url="../../common/error.cfm">
+		</cfcatch>	<!--- end database exception --->
+		<cfcatch type="any">	<!--- catch block for any exception --->
+			<cflog file="EmployeeManagementSystemLog" application="no" text="Any Error on component : personalService on function : updatePersonalDetails "/>
+			<cflocation url="../../common/error.cfm">
+		</cfcatch>	<!--- end any exception --->
+		</cftry>	<!--- end dtry block --->
 		<cfreturn true/>
 	</cffunction>
 
@@ -178,11 +259,10 @@
 		<cfargument  name="numberDays" type="numeric" required="true"/>
 		<cfargument name="reason" type="string" required="true"/>
 		<cfargument name="year" type="string" required="true"/>
-		<!--- insert into leave taken table --->
-		<cfquery name="addLeave">
-
-
-		INSERT INTO leaveTaken VALUES(
+		<cftry>		<!--- try block for handle exception --->
+			<!--- insert into leave taken table --->
+			<cfquery name="addLeave">
+				INSERT INTO leaveTaken VALUES(
 									<cfqueryparam cfsqltype="CF_SQL_INT" value="#ARGUMENTS.employeeId#"/>,
 									<cfqueryparam cfsqltype="CF_SQL_DATE" value="#ARGUMENTS.fromDate#"/>,
 									<cfqueryparam cfsqltype="CF_SQL_DATE" value="#ARGUMENTS.toDate#"/>,
@@ -190,19 +270,88 @@
 									<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#ARGUMENTS.reason#"/>
 									);
 
-		</cfquery>
-		<!--- update into employeeAnnualLeave --->
-		<cfquery name="updateAnnualLeave">
-			UPDATE employeeAnnualLeave SET totalLeaveTaken = totalLeaveTaken + <cfqueryparam cfsqltype="CF_SQL_INT" value="#ARGUMENTS.numberDays#"/>,
-			totalRemainingLeave = totalRemainingLeave - <cfqueryparam cfsqltype="CF_SQL_INT" value="#ARGUMENTS.numberDays#"/>
-			WHERE  empId = <cfqueryparam cfsqltype="CF_SQL_INT" value="#ARGUMENTS.employeeId#"/> and
-			leaveYear = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#ARGUMENTS.year#"/>
+			</cfquery>
 
-		</cfquery>
+			<!--- update into employeeAnnualLeave --->
+			<cfquery name="updateAnnualLeave">
+				UPDATE employeeAnnualLeave SET
+						totalLeaveTaken = totalLeaveTaken + <cfqueryparam cfsqltype="CF_SQL_INT" value="#ARGUMENTS.numberDays#"/>,
+						totalRemainingLeave = totalRemainingLeave - <cfqueryparam cfsqltype="CF_SQL_INT" value="#ARGUMENTS.numberDays#"/>
+						WHERE  empId = <cfqueryparam cfsqltype="CF_SQL_INT" value="#ARGUMENTS.employeeId#"/> and
+						leaveYear = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#ARGUMENTS.year#"/>
+
+			</cfquery>
+		<cfcatch type="Database">	<!--- catch block for database exception --->
+			<cflog file="EmployeeManagementSystemLog" application="no" text="Database Error on component : personalService on function : addLeave"/>
+			<cflocation url="error.cfm">
+		</cfcatch>	<!--- end database exception --->
+		<cfcatch type="any">	<!--- catch block for any exception --->
+			<cflog file="EmployeeManagementSystemLog" application="no" text="Any Error on component : personalService on function : addLeave "/>
+			<cflocation url="error.cfm">
+		</cfcatch>	<!--- end any exception --->
+		</cftry>	<!--- end dtry block --->
 
 		<cfreturn true/>
 	</cffunction>
 
+	<!--- get role details --->
+	<cffunction name="getRollName" hint="fetch the role name from the employee role table" access="public" output="false" returntype="query">
+		<cfargument name="departmentName" type="string" required="true"/>
+		<cftry>		<!--- try block for handle exception --->
+			<cfquery name="roleName">
+				SELECT empRole.roleId,empRole.roleName FROM employeeRole empRole JOIN department dept ON
+				empRole.departmentId = dept.departmentId where dept.departmentName =
+					<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#ARGUMENTS.departmentName#"/>
+			</cfquery>
+		<cfcatch type="Database">	<!--- catch block for database exception --->
+			<cflog file="EmployeeManagementSystemLog" application="no" text="Database Error on component : personalService on function : getRollName"/>
+			<cflocation url="../../common/error.cfm">
+		</cfcatch>	<!--- end database exception --->
+		<cfcatch type="any">	<!--- catch block for any exception --->
+			<cflog file="EmployeeManagementSystemLog" application="no" text="Any Error on component : personalService on function : getRollName "/>
+			<cflocation url="../../common/error.cfm">
+		</cfcatch>	<!--- end any exception --->
+		</cftry>	<!--- end dtry block --->
+		<cfreturn roleName/>
+	</cffunction>
 
+
+	<!--- add skills --->
+	<cffunction name="addSkill" hint="insert skill in to employee skill table" access="public" output="false" returntype="boolean">
+		<!--- Arguments --->
+		<cfargument name="employeeId" type="numeric" required="true"/>
+		<cfargument  name="skillId" type="numeric" required="true"/>
+		<cftry>		<!--- try block for handle exception --->
+
+			<cfquery name="checkSkill">
+				SELECT skillId FROM employeeSkills WHERE
+									empId = <cfqueryparam cfsqltype="CF_SQL_INT" value="#ARGUMENTS.employeeId#"/> AND
+									skillId = <cfqueryparam cfsqltype="CF_SQL_INT" value="#ARGUMENTS.skillId#"/>
+			</cfquery>
+
+			<cfif checkSkill.recordCount EQ 0>
+				<!--- insert into employee skills table --->
+				<cfquery name="addSkill">
+					INSERT INTO employeeSkills VALUES(
+									<cfqueryparam cfsqltype="CF_SQL_INT" value="#ARGUMENTS.employeeId#"/>,
+									<cfqueryparam cfsqltype="CF_SQL_INT" value="#ARGUMENTS.skillId#"/>
+									);
+
+				</cfquery>
+			<cfelse>
+				<cfreturn false/>
+			</cfif>
+		<cfcatch type="Database">	<!--- catch block for database exception --->
+			<cflog file="EmployeeManagementSystemLog" application="no" text="Database Error on component : personalService on function : addSkill"/>
+			<cflocation url="error.cfm">
+		</cfcatch>	<!--- end database exception --->
+		<cfcatch type="any">	<!--- catch block for any exception --->
+			<cflog file="EmployeeManagementSystemLog" application="no" text="Any Error on component : personalService on function : addSkill "/>
+			<cflocation url="error.cfm">
+		</cfcatch>	<!--- end any exception --->
+		</cftry>	<!--- end dtry block --->
+
+		<cfreturn true/>
+	</cffunction>
 
 </cfcomponent>

@@ -1,5 +1,38 @@
 $(document).ready(function(){
 	
+	var personalDetails = $("#personalDetails");
+	var projectDetails = $("#projectDetails");
+	var skillsDetails = $("#skillsDetails");
+	var annualLeaveDetails = $("#annualLeaveDetails");
+	var leaveHistory = $("#leaveHistory");
+	
+	var personalDetailsTemplate = $("#personalDetailsTemplate");
+	var projectDetailsTemplate = $("#projectDetailsTemplate");
+	var skillDetailsTemplate = $("#skillDetailsTemplate");
+	var annualLeaveDetailsTemplate = $("#annualLeaveDetailsTemplate");
+	var leaveHistoryTemplate = $("#leaveHistoryTemplate");
+			
+	personalDetails.click(function(){
+		showBlock(personalDetailsTemplate);
+	});
+	
+	projectDetails.click(function(){
+		showBlock(projectDetailsTemplate);
+	});
+	
+	skillsDetails.click(function(){
+		showBlock(skillDetailsTemplate);
+	});
+	
+	annualLeaveDetails.click(function(){
+		showBlock(annualLeaveDetailsTemplate);
+	});
+	
+	leaveHistory.click(function(){
+		showBlock(leaveHistoryTemplate);
+	});
+	
+	showBlock(personalDetailsTemplate);
 	
 	var back = $("#back");
 	var edit = $("#edit");
@@ -17,21 +50,22 @@ $(document).ready(function(){
 	var female = $("#female");
 	var other = $("#other");
 	var updateProfile = $("#updateProfile");
+	var successMessage =$("#successMessage");
 	
 	var dobError = $("#dobError");
 	var phoneNumberError = $("#phoneNumberError");
 	
 	var errorDOB;
-	var errorGender;
 	var errorPhoneNumber;
 	
-	if(genderHidden == 'f'){
+	if(genderHidden == 'Female'){
 		female.prop('checked',true);
-	}else if(genderHidden == 'm'){
+	}else if(genderHidden == 'Male'){
 		male.prop('checked',true);
-	}else if(genderHidden == 'o'){
+	}else if(genderHidden == 'Other'){
 		other.prop('checked',true);
 	}
+	
 	
 	updateDetails.hide();
 	back.hide();
@@ -55,6 +89,8 @@ $(document).ready(function(){
 		dobError.hide();
 		phoneNumberError.hide();
 		
+		successMessage.hide();
+		
 	});
 	
 	back.click(function(){
@@ -71,6 +107,8 @@ $(document).ready(function(){
 		
 		dobError.hide();
 		phoneNumberError.hide();
+		
+		successMessage.hide();
 	});
 	
 	function checkDOB(){
@@ -99,6 +137,8 @@ $(document).ready(function(){
 		
 	updateProfile.submit(function(){
 		
+		successMessage.show();
+		
 		dobError.show();
 		phoneNumberError.show();
 		
@@ -108,7 +148,6 @@ $(document).ready(function(){
 		checkDOB();
 		checkPhoneNumber();
 		
-		console.log(errorDOB,errorPhoneNumber)
 		
 		if(errorDOB && errorPhoneNumber){
 				return true;
@@ -116,3 +155,8 @@ $(document).ready(function(){
 		return false;
 		});
 });	
+
+function showBlock(details){
+	$(".tabcontent").css("display" , "none");
+	details.css("display" , "block");
+}	

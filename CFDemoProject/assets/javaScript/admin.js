@@ -1,4 +1,7 @@
 
 $(document).ready(function() {
-    $('#showEmployees').DataTable();
+	if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+	$('#showEmployees').DataTable();
 });

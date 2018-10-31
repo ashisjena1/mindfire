@@ -7,20 +7,20 @@
 	</cfif>
 	<!--- Checking the user is HR or Not --->
 	<cfif #SESSION.setLoggedInUser.empRole# EQ "HR">
-		<cfset name="#SESSION.setLoggedInUser.firstName# #SESSION.setLoggedInUser.lastName#">
+		<cfset VARIABLES.name="#SESSION.setLoggedInUser.firstName# #SESSION.setLoggedInUser.lastName#">
 
 		<cfif not structKeyExists(FORM,"assignProject")>
-			<cfset assignProjectErrorMessage={employeeName="",projectName="",assignDate="",completionDate=""}/>
+			<cfset VARIABLES.assignProjectErrorMessage={employeeName="",projectName="",assignDate="",completionDate=""}/>
 		<cfelse>
-			<cfset assignProjectErrorMessage=APPLICATION.adminService.checkProjectMappingDetails()/>
-			<cfif assignProjectErrorMessage.employeeName EQ ""  and assignProjectErrorMessage.projectName eq "" and
-					assignProjectErrorMessage.assignDate eq "" and assignProjectErrorMessage.completionDate eq "">
-					<cfset isProjectMapped = APPLICATION.adminService.addProjectMapping(FORM.employeeName,FORM.projectName,FORM.projectAssignDate,FORM.projectcompletionDate)/>
+			<cfset VARIABLES.assignProjectErrorMessage=APPLICATION.adminService.checkProjectMappingDetails()/>
+			<cfif VARIABLES.assignProjectErrorMessage.employeeName EQ ""  and VARIABLES.assignProjectErrorMessage.projectName eq "" and
+					VARIABLES.assignProjectErrorMessage.assignDate eq "" and VARIABLES.assignProjectErrorMessage.completionDate eq "">
+					<cfset VARIABLES.isProjectMapped = APPLICATION.adminService.addProjectMapping(FORM.employeeName,FORM.projectName,FORM.projectAssignDate,FORM.projectcompletionDate)/>
 			</cfif>
 
 		</cfif>
-		<cfparam name="isProjectMapped" default="false">
-		<cfif isProjectMapped>
+		<cfparam name="VARIABLES.isProjectMapped" default="false">
+		<cfif VARIABLES.isProjectMapped>
 			<cflocation url="../index.cfm">
 		<cfelse>
 			<cf_headerFooter title="Assign Project">
@@ -31,15 +31,15 @@
 				</head>
 				<body>
 					<!--- custom tag for top nav bar --->
-					<cf_navbar name="#name#" source="../../assets/images/" homeSource="../"	profileSource="profile.cfm"></cf_navbar>
+					<cf_navbar name="#VARIABLES.name#" source="../../assets/images/" homeSource="../"	profileSource="../../common/profile.cfm"></cf_navbar>
 					<!--- Side navbar --->
 					<div class="sidenav">
 						  <a href="addEmployee.cfm">Add Employee</a>
 						  <a href="addProject.cfm">Add Project</a>
 						  <a href="projectDetails.cfm">Project Details</a>
-						  <a href="assignProject.cfm">Assign Project</a>
-						  <a href="applyLeaves.cfm">Apply Leaves</a>
-						  <a href="salary.cfm">Salary</a>
+						  <a href="">Assign Project</a>
+						  <a href="../../common/applyLeaves.cfm">Apply Leaves</a>
+						  <a href="../../common/salary.cfm">Salary</a>
 					</div><!--- end side navbar --->
 					<!--- main content --->
 					<div class="main">
@@ -61,7 +61,7 @@
 												</select>
 											</div>
 											 <div class="col-sm-4"></div>
-											 <div class="col-sm-8"><span class="text-danger" id="nameError">#assignProjectErrorMessage.employeeName#</span></div>
+											 <div class="col-sm-8"><span class="text-danger" id="nameError">#VARIABLES.assignProjectErrorMessage.employeeName#</span></div>
 										</div>
 
 										<!--- fetch the name of the project which are not finished yet --->
@@ -77,7 +77,7 @@
 												</select>
 											</div>
 											 <div class="col-sm-4"></div>
-											<div class="col-sm-8"><span class="text-danger" id="projectNameError">#assignProjectErrorMessage.projectName#</span></div>
+											<div class="col-sm-8"><span class="text-danger" id="projectNameError">#VARIABLES.assignProjectErrorMessage.projectName#</span></div>
 										</div>
 
 										<div class="form-group">
@@ -86,7 +86,7 @@
 												<input type="date" id="assignDate" name="projectAssignDate" class="form-control">
 											</div>
 											 <div class="col-sm-4"></div>
-											<div class="col-sm-8"><span class="text-danger" id="assignDateError">#assignProjectErrorMessage.assignDate#</span></div>
+											<div class="col-sm-8"><span class="text-danger" id="assignDateError">#VARIABLES.assignProjectErrorMessage.assignDate#</span></div>
 										</div>
 
 										<div class="form-group">
@@ -95,7 +95,7 @@
 												<input type="date" id="completionDate" name="projectcompletionDate" class="form-control">
 											</div>
 											 <div class="col-sm-4"></div>
-											<div class="col-sm-8"><span class="text-danger" id="completionDateError">#assignProjectErrorMessage.completionDate#</span></div>
+											<div class="col-sm-8"><span class="text-danger" id="completionDateError">#VARIABLES.assignProjectErrorMessage.completionDate#</span></div>
 										</div>
 
 

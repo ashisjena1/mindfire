@@ -2,8 +2,8 @@
 <cfif structKeyExists(SESSION,"setLoggedInUser")>
 	<!--- Checking the user is HR or Not --->
 	<cfif #UCase(SESSION.setLoggedInUser.empRole)# EQ "HR">
-		<cfset name="#SESSION.setLoggedInUser.firstName# #SESSION.setLoggedInUser.lastName#">
-		<cfparam name="isEmployeeAdded" default=false/>
+		<cfset VARIABLES.name="#SESSION.setLoggedInUser.firstName# #SESSION.setLoggedInUser.lastName#">
+		<cfparam name="VARIABLES.isEmployeeAdded" default=false/>
 		<!--- Checking for Logout --->
 		<cfif structKeyExists(URL,"logout")>
 			<cfset APPLICATION.loginService.doLogout()/>
@@ -12,23 +12,23 @@
 		<!--- Checking for submit button click --->
 		<cfif not structKeyExists(FORM,"addEmployee")>
 			<!--- Setting the error message in addEmployeeErrorMessage structure --->
-			<cfset addEmployeeErrorMessage =
+			<cfset VARIABLE.addEmployeeErrorMessage =
 				{firstName="",middleName="",lastName="",email="",dob="",phoneNumber="",joiningDate="",basicSalary="",roleName=""}/>
 		<cfelse>
 			<!--- Checking admin input data for server side validation --->
-			<cfset addEmployeeErrorMessage=APPLICATION.adminService.checkEmployeeDetails()/>
+			<cfset VARIABLE.addEmployeeErrorMessage=APPLICATION.adminService.checkEmployeeDetails()/>
 			<!--- Checking for no error --->
-			<cfif addEmployeeErrorMessage.firstName EQ ""  and addEmployeeErrorMessage.middleName EQ "" and addEmployeeErrorMessage.lastName EQ "" and
-				  addEmployeeErrorMessage.email EQ "" and addEmployeeErrorMessage.dob EQ "" and addEmployeeErrorMessage.phoneNumber EQ "" and
-				  addEmployeeErrorMessage.joiningDate EQ "" and addEmployeeErrorMessage.basicSalary EQ "" and addEmployeeErrorMessage.roleName EQ "">
+			<cfif VARIABLE.addEmployeeErrorMessage.firstName EQ ""  and VARIABLE.addEmployeeErrorMessage.middleName EQ "" and VARIABLE.addEmployeeErrorMessage.lastName EQ "" and
+				  VARIABLE.addEmployeeErrorMessage.email EQ "" and VARIABLE.addEmployeeErrorMessage.dob EQ "" and VARIABLE.addEmployeeErrorMessage.phoneNumber EQ "" and
+				  VARIABLE.addEmployeeErrorMessage.joiningDate EQ "" and VARIABLE.addEmployeeErrorMessage.basicSalary EQ "" and VARIABLE.addEmployeeErrorMessage.roleName EQ "">
 					<!--- If no error then add data to the employee table --->
-					<cfset isEmployeeAdded = APPLICATION.adminService.addEmployee(FORM.firstName,FORM.middleName,FORM.lastName,FORM.email,FORM.dateOfBirth,
+					<cfset VARIABLES.isEmployeeAdded = APPLICATION.adminService.addEmployee(FORM.firstName,FORM.middleName,FORM.lastName,FORM.email,FORM.dateOfBirth,
 										FORM.phoneNumber,FORM.gender,FORM.joiningDate,FORM.basicSalary,FORM.roleId)/>
 			</cfif>
 		</cfif>
 
 		<!--- If employee added successfully then redirect to home page --->
-		<cfif isEmployeeAdded>
+		<cfif VARIABLES.isEmployeeAdded>
 				<cflocation url="../index.cfm">
 		<cfelse><!--- else show the add employee form --->
 			<cf_headerFooter title="Add Employee">
@@ -39,15 +39,15 @@
 				</head>
 				<body>
 					<!--- custom tag for top nav bar --->
-					<cf_navbar name="#name#" source="../../assets/images/" homeSource="../" profileSource="profile.cfm"></cf_navbar>
+					<cf_navbar name="#VARIABLES.name#" source="../../assets/images/" homeSource="../" profileSource="../../common/profile.cfm"></cf_navbar>
 					<!--- Side navbar --->
 					<div class="sidenav">
-					  <a href="addEmployee.cfm">Add Employee</a>
+					  <a href="">Add Employee</a>
 					  <a href="addProject.cfm">Add Project</a>
 					  <a href="projectDetails.cfm">Project Details</a>
 					  <a href="assignProject.cfm">Assign Project</a>
-					  <a href="applyLeaves.cfm">Apply Leaves</a>
-					  <a href="salary.cfm">Salary</a>
+					  <a href="../../common/applyLeaves.cfm">Apply Leaves</a>
+					  <a href="../../common/salary.cfm">Salary</a>
 					</div><!--- end side navbar --->
 					<!--- main content --->
 					<div class="main">
@@ -63,7 +63,7 @@
 											</div>
 											<div class="col-sm-4"></div>
 											<div class="col-sm-8">
-												<span class="text-danger" id="firstNameError">#addEmployeeErrorMessage.firstName#</span>
+												<span class="text-danger" id="firstNameError">#VARIABLE.addEmployeeErrorMessage.firstName#</span>
 											</div>
 										</div>
 
@@ -74,7 +74,7 @@
 											</div>
 											<div class="col-sm-4"></div>
 											<div class="col-sm-8">
-												<span class="text-danger" id="middleNameError">#addEmployeeErrorMessage.middleName#</span>
+												<span class="text-danger" id="middleNameError">#VARIABLE.addEmployeeErrorMessage.middleName#</span>
 											</div>
 										</div>
 
@@ -85,7 +85,7 @@
 											</div>
 											<div class="col-sm-4"></div>
 											<div class="col-sm-8">
-												<span class="text-danger" id="lastNameError">#addEmployeeErrorMessage.lastName#</span>
+												<span class="text-danger" id="lastNameError">#VARIABLE.addEmployeeErrorMessage.lastName#</span>
 											</div>
 										</div>
 
@@ -96,7 +96,7 @@
 											</div>
 											<div class="col-sm-4"></div>
 											<div class="col-sm-8">
-												<span class="text-danger" id="emailError">#addEmployeeErrorMessage.email#</span>
+												<span class="text-danger" id="emailError">#VARIABLE.addEmployeeErrorMessage.email#</span>
 											</div>
 										</div>
 
@@ -108,7 +108,7 @@
 											</div>
 											<div class="col-sm-4"></div>
 											<div class="col-sm-8">
-												<span class="text-danger" id="dobError">#addEmployeeErrorMessage.dob#</span>
+												<span class="text-danger" id="dobError">#VARIABLE.addEmployeeErrorMessage.dob#</span>
 											</div>
 										</div>
 
@@ -119,7 +119,7 @@
 											 </div>
 											 <div class="col-sm-4"></div>
 											<div class="col-sm-8">
-												<span class="text-danger" id="phoneNumberError">#addEmployeeErrorMessage.phoneNumber#</span>
+												<span class="text-danger" id="phoneNumberError">#VARIABLE.addEmployeeErrorMessage.phoneNumber#</span>
 											</div>
 										</div>
 
@@ -153,7 +153,7 @@
 											</div>
 											<div class="col-sm-4"></div>
 											<div class="col-sm-8">
-												<span class="text-danger" id="joiningDateError">#addEmployeeErrorMessage.joiningDate#</span>
+												<span class="text-danger" id="joiningDateError">#VARIABLE.addEmployeeErrorMessage.joiningDate#</span>
 											</div>
 										</div>
 
@@ -164,7 +164,7 @@
 											</div>
 											<div class="col-sm-4"></div>
 												<div class="col-sm-8">
-													<span class="text-danger" id="basicSalaryError">#addEmployeeErrorMessage.basicSalary#</span>
+													<span class="text-danger" id="basicSalaryError">#VARIABLE.addEmployeeErrorMessage.basicSalary#</span>
 												</div>
 										</div>
 
@@ -183,7 +183,7 @@
 												</div>
 												<div class="col-sm-4"></div>
 												<div class="col-sm-8">
-													<span class="text-danger" id="roleNameError">#addEmployeeErrorMessage.roleName#</span>
+													<span class="text-danger" id="roleNameError">#VARIABLE.addEmployeeErrorMessage.roleName#</span>
 												</div>
 										</div>
 

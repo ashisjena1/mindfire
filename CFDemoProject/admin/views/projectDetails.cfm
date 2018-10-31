@@ -7,9 +7,9 @@
 	</cfif>
 	<!--- Checking the user is HR or Not --->
 	<cfif #SESSION.setLoggedInUser.empRole# eq "HR">
-		<cfset name="#SESSION.setLoggedInUser.firstName# #SESSION.setLoggedInUser.lastName#">
+		<cfset VARIABLES.name="#SESSION.setLoggedInUser.firstName# #SESSION.setLoggedInUser.lastName#">
 		<!--- Fetch the project list from the project table --->
-		<cfset project=APPLICATION.adminService.getProjectDetails()/>
+		<cfset VARIABLES.project=APPLICATION.adminService.getProjectDetails()/>
 		<!--- Custom tags for header footer--->
 		<cf_headerFooter title="Show Project">
 				<!--- Import external style sheet --->
@@ -19,15 +19,15 @@
 			</head>
 			<body>
 				<!--- Custom tag for top nav bar --->
-				<cf_navbar name="#name#" source="../../assets/images/" homeSource="../"	profileSource="profile.cfm"></cf_navbar>
+				<cf_navbar name="#VARIABLES.name#" source="../../assets/images/" homeSource="../"	profileSource="../../common/profile.cfm"></cf_navbar>
 				<!--- Side navbar --->
 				<div class="sidenav">
 					  <a href="addEmployee.cfm">Add Employee</a>
 					  <a href="addProject.cfm">Add Project</a>
-					  <a href="projectDetails.cfm">Project Details</a>
+					  <a href="">Project Details</a>
 					  <a href="assignProject.cfm">Assign Project</a>
-					  <a href="applyLeaves.cfm">Apply Leaves</a>
-					  <a href="salary.cfm">Salary</a>
+					  <a href="../../common/applyLeaves.cfm">Apply Leaves</a>
+					  <a href="../../common/salary.cfm">Salary</a>
 				</div><!--- end side navbar --->
 				<!--- main content --->
 				<div class="main">
@@ -44,12 +44,12 @@
 				        </thead>
 						<tbody>
 							<!--- Loop over the project Details --->
-				        	<cfoutput query="project">
+				        	<cfoutput query="VARIABLES.project">
 					        	<tr>
-						        	<td>#project.projectName#</td>
-					        		<td>#project.manager#</td>
-					        		<td>#DateFormat(project.startDate,"mmm-dd-yyyy")#</td>
-					        		<td>#DateFormat(project.endDate,"mmm-dd-yyyy")#</td>
+						        	<td>#VARIABLES.project.projectName#</td>
+					        		<td>#VARIABLES.project.manager#</td>
+					        		<td>#DateFormat(VARIABLES.project.startDate,"mmm-dd-yyyy")#</td>
+					        		<td>#DateFormat(VARIABLES.project.endDate,"mmm-dd-yyyy")#</td>
 
 							 	</tr>
 				        	</cfoutput>
