@@ -1,0 +1,19 @@
+body{
+	background-image:url('../images/error.png');
+}
+.error{
+	width:35%;
+	height:30%;
+	margin : auto;
+	font-size:200%;
+}
+.error h1{
+	font-size:300%;
+}
+.error p{
+	font-size:150%;
+}
+.error button{
+	/*position:absolute;*/
+	margin: 0 35%;
+}
