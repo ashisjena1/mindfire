@@ -1,0 +1,62 @@
+			body{
+				background-image:url(../image/background.jpg);
+				background-repeat:no-repeat;
+				background-position:center;
+				background-size:cover;
+			}
+			*{
+				box-sizing:border-box;
+			}
+			.transbox {
+			  margin: auto;
+			  background-color: #ffffff;
+			  border: 1px solid black;
+			  opacity: 0.6;
+			  filter: alpha(opacity=60);
+			  padding:20px;
+			  width:40%;
+			  height:auto;
+			  border-radius:50px 20px;
+			}
+			#logo{
+				margin:5px;
+				height:50px;
+				width:50px;
+			}
+			.transbox h3{
+				margin:5px;
+				color:red;
+			}
+			input[type=text], input[type=password],input[type=email],input[type=number],select{
+				width: 100%;
+				padding: 10px;
+				margin: 5px 0 22px 0;
+				display: inline-block;
+			}
+			input[type=text]:focus, input[type=password]:focus,input[type=email]:focus,input[type=number]:focus,select{
+				background-color: #ddd;
+				outline: none;
+			}
+			.asterisk_input:after {
+				content:"*"; 
+				color: #e32;
+				position: absolute; 
+				font-size: x-large; 
+				
+			}
+			.radio{
+				margin-right:20px;
+			}
+			input[type=submit] {
+				background-color: #4CAF50;
+				color: white;
+				margin-top:5px;
+				padding: 12px 20px;
+				border: none;
+				border-radius: 4px;
+				cursor: pointer;
+				display:block;
+			}
+			input[type=submit]:hover {
+				background-color: #45a049;
+			}
